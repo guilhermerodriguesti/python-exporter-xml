@@ -1,11 +1,13 @@
 # Import the required library
+import urllib.request
 from bs4 import BeautifulSoup
 
 # Main Function
 if __name__ == '__main__':
-
+    # download webpage and save as local file
+    urllib.request.urlretrieve('https://www.google.com', 'webpage.html')
     # Provide the path of the html file
-    file = "input.html"
+    file = "webpage.html"
 
     # Open the html file and Parse it
     # using Beautiful soup's html.parser.
@@ -19,5 +21,7 @@ if __name__ == '__main__':
     content = "\n".join(lines[1:])
 
     # Open a output.xml file and write the modified content.
-    with open("output.xml", 'w', encoding='utf-8') as out:
+    with open("output-webpage.xml", 'w', encoding='utf-8') as out:
         out.write(content)
+
+
