@@ -1,4 +1,5 @@
-from lxml import html, etree
+# Import the required library
+from bs4 import BeautifulSoup
 
 # Main Function
 if __name__ == '__main__':
@@ -6,13 +7,17 @@ if __name__ == '__main__':
     # Provide the path of the html file
     file = "input.html"
 
-    # Open the html file and Parse it,
-    # returning a single element/document.
+    # Open the html file and Parse it
+    # using Beautiful soup's html.parser.
     with open(file, 'r', encoding='utf-8') as inp:
-        htmldoc = html.fromstring(inp.read())
+        soup = BeautifulSoup(inp, 'html.parser')
 
-    # Open a output.xml file and write the
-    # element/document to an encoded string
-    # representation of its XML tree.
-    with open("output.xml", 'wb') as out:
-        out.write(etree.tostring(htmldoc))
+    # Split the document by lines and join the lines
+    # from index 1 to remove the doctype Html as it is
+    # present in index 0 from the parsed document.
+    lines = soup.prettify().splitlines()
+    content = "\n".join(lines[1:])
+
+    # Open a output.xml file and write the modified content.
+    with open("output.xml", 'w', encoding='utf-8') as out:
+        out.write(content)
